@@ -11,6 +11,7 @@ import FirebaseAuth
 class MainViewController: UIViewController {
     
     @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var resetPasswordButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,9 @@ class MainViewController: UIViewController {
         \(email)님
         """
         
+        // 이메일로 로그인 한 사용자 검증
+        let isEmailSignIn = Auth.auth().currentUser?.providerData[0].providerID == "password"
+        resetPasswordButton.isHidden = !isEmailSignIn // 이메일 로그인이 아닐 경우 버튼 숨김
     }
     
     
@@ -51,4 +55,10 @@ class MainViewController: UIViewController {
         
     }
     
+    // 이메일로 로그인 시 비밀번호 변경
+    @IBAction func resetPasswordButtonTapped(_ sender: UIButton) {
+        let email = Auth.auth().currentUser?.email ?? ""
+        // 비밀번호 재설정 이메일을 보냄
+        Auth.auth().sendPasswordReset(withEmail: email, completion: nil)
+    }
 }
