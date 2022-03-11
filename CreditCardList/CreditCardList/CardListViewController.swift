@@ -7,8 +7,12 @@
 
 import UIKit
 import Kingfisher
+import FirebaseDatabase
 
 class CardListViewController: UITableViewController {
+    
+    var ref: DatabaseReference!     // firebase realtime database를 가지고 올 수 있는 레퍼런스
+    
     var creditCardList: [CreditCard] = []
     
     override func viewDidLoad() {
@@ -17,6 +21,23 @@ class CardListViewController: UITableViewController {
         // UITableView Cell Register
         let nibName = UINib(nibName: "CardListCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "CardListCell")
+        
+        ref = Database.database().reference()   // 데이터베이스 선언
+        
+        // 어떤 데이터를 볼 것인지
+        ref.observe(.value) { snapshot in
+            guard let value = snapshot.value as? [String: [String: Any]] else { return }
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: value)
+                let cardData = try JSONDecoder().decode([String: CreditCard].self, from: jsonData)
+                let cardList = Array(cardData.values)
+                self.creditCardList = cardList.sorted { $0.rank < $1.rank }
+                
+            } catch let error {
+                print("ERROR JSON parsing \(error.localizedDescription)")
+            }
+        }
     }
     
     // 리스트 수
