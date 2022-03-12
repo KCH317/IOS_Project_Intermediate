@@ -32,7 +32,12 @@ class CardListViewController: UITableViewController {
                 let jsonData = try JSONSerialization.data(withJSONObject: value)
                 let cardData = try JSONDecoder().decode([String: CreditCard].self, from: jsonData)
                 let cardList = Array(cardData.values)
-                self.creditCardList = cardList.sorted { $0.rank < $1.rank }
+                self.creditCardList = cardList.sorted { $0.rank < $1.rank } // 순위대로
+                
+                // 테이블 뷰 리로드
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
                 
             } catch let error {
                 print("ERROR JSON parsing \(error.localizedDescription)")
