@@ -22,10 +22,10 @@ class CardListViewController: UITableViewController {
         let nibName = UINib(nibName: "CardListCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "CardListCell")
         
-        ref = Database.database().reference()   // 데이터베이스 선언
+        self.ref = Database.database().reference()   // 데이터베이스 선언
         
         // 어떤 데이터를 볼 것인지
-        ref.observe(.value) { snapshot in
+        self.ref.observe(.value) { snapshot in
             guard let value = snapshot.value as? [String: [String: Any]] else { return }
             
             do {
@@ -56,7 +56,7 @@ class CardListViewController: UITableViewController {
         
         cell.rankLabel.text = "\(creditCardList[indexPath.row].rank)위"
         cell.promotionLabel.text = "\(creditCardList[indexPath.row].promotionDetail.amount)만원 증정"
-        cell.cardNameLabel.text = "\(creditCardList[indexPath.row].name)"
+        cell.cardNameLabel.text = creditCardList[indexPath.row].name
         
         let imageURL = URL(string: creditCardList[indexPath.row].cardImageUrl)
         cell.cardImageView.kf.setImage(with: imageURL) // Kingfisher 사용
@@ -78,6 +78,41 @@ class CardListViewController: UITableViewController {
         
         detailViewController.promotionDetail = creditCardList[indexPath.row].promotionDetail
         self.show(detailViewController, sender: nil)
+        
+        // 셀선택
+        let cardID = creditCardList[indexPath.row].id
+//        ref.child("Item\(cardID)/isSelected").setValue(true)
+        
+        // 셀선택 option2
+        self.ref.queryOrdered(byChild: "id").queryEqual(toValue: cardID).observe(.value) {[weak self] snapshot in
+            guard let self = self,
+                  let value = snapshot.value as? [String: [String: Any]],
+                  let key = value.keys.first else { return }
+            
+            self.ref.child("\(key)/isSelected").setValue(true)
+        }
+    }
+    
+    // 행 삭제
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Firebase Realtime Database 삭제
+            let cardID = creditCardList[indexPath.row].id
+            self.ref.queryOrdered(byChild: "id").queryEqual(toValue: cardID).observe(.value) {[weak self] snapshot in
+                guard let self = self,
+                      let value = snapshot.value as? [String: [String: Any]],
+                      let key = value.keys.first else { return }
+                
+                self.ref.child(key).removeValue()
+            }
+            
+        }
     }
     
 }
+
