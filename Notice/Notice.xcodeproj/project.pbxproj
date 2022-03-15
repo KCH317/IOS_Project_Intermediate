@@ -16,6 +16,7 @@
 		FAE42FEC27DF6ADA00B44C73 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE42FEA27DF6ADA00B44C73 /* NoticeViewController.swift */; };
 		FAE42FED27DF6ADA00B44C73 /* NoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE42FEB27DF6ADA00B44C73 /* NoticeViewController.xib */; };
 		FAE42FEF27DF875900B44C73 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAE42FEE27DF875900B44C73 /* GoogleService-Info.plist */; };
+		FAE42FF127DF8B4D00B44C73 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAE42FF027DF8B4D00B44C73 /* RemoteConfigDefaults.plist */; };
 		FB6E456C97F511DB7DA7BE29 /* Pods_Notice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C611E16A065656256A7CBE /* Pods_Notice.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		FAE42FEA27DF6ADA00B44C73 /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		FAE42FEB27DF6ADA00B44C73 /* NoticeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeViewController.xib; sourceTree = "<group>"; };
 		FAE42FEE27DF875900B44C73 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FAE42FF027DF8B4D00B44C73 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +56,6 @@
 				650413A85E86E1F226FCBDA1 /* Pods-Notice.debug.xcconfig */,
 				284B17E9208B4FA306445C29 /* Pods-Notice.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -90,6 +91,7 @@
 				FAE42FD627DF6A9200B44C73 /* AppDelegate.swift */,
 				FAE42FD827DF6A9200B44C73 /* SceneDelegate.swift */,
 				FAE42FDA27DF6A9200B44C73 /* ViewController.swift */,
+				FAE42FF027DF8B4D00B44C73 /* RemoteConfigDefaults.plist */,
 				FAE42FDC27DF6A9200B44C73 /* Main.storyboard */,
 				FAE42FEA27DF6ADA00B44C73 /* NoticeViewController.swift */,
 				FAE42FEB27DF6ADA00B44C73 /* NoticeViewController.xib */,
@@ -161,6 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE42FF127DF8B4D00B44C73 /* RemoteConfigDefaults.plist in Resources */,
 				FAE42FE327DF6A9300B44C73 /* LaunchScreen.storyboard in Resources */,
 				FAE42FE027DF6A9300B44C73 /* Assets.xcassets in Resources */,
 				FAE42FEF27DF875900B44C73 /* GoogleService-Info.plist in Resources */,
